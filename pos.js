@@ -36,13 +36,11 @@ module.exports = {
     delta: function(pos, startPos) {
         var delta = {
             x: startPos.x - pos.x,
-            y: startPos.y - pos.y
+            y: startPos.y - pos.y,
+            distance: 0,
+            rotate: 0
         };
-        if (pos.multi && !startPos.multi) {
-            delta.firstMulti = true;
-        } else if (!pos.multi && startPos.multi) {
-            delta.lastMulti = true;
-        } else if (pos.multi && startPos.multi) {
+        if (pos.multi && startPos.multi) {
             delta.distance = startPos.distance - pos.distance,
             delta.rotate = startPos.rotate - pos.rotate
         }

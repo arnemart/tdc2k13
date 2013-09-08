@@ -12,16 +12,16 @@ module.exports = function(element) {
         var touchMove = function(evt) {
             evt.preventDefault();
             var curPos = pos.pos(evt);
-            var delta = pos.delta(curPos, startPos);
-            if (delta.firstMulti) {
+            if (curPos.multi && !startPos.multi) {
                 startPos.multi = true;
                 startPos.distance = curPos.distance;
                 startPos.angle = curPos.angle;
-            } else if (delta.lastMulti) {
+            } else if (!curPos.multi && startPos.multi) {
                 startPos.multi = false;
                 startPos.distance = undefined;
                 startPos.angle = undefined;
             }
+            var delta = pos.delta(curPos, startPos);
             transform.set(element, {
                 x: startTransform.x - delta.x,
                 y: startTransform.y - delta.y,
