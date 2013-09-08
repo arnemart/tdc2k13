@@ -7,4 +7,7 @@ watch:
 deps:
 	npm install
 
-.PHONY: build watch deps
+clean:
+	rm -f build.js
+
+.PHONY: build watch deps clean
