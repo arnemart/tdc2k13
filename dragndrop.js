@@ -1,23 +1,33 @@
 var events    = require('./events');
 var transform = require('./transform');
-var getPos    = require('./getPos');
+var pos    = require('./pos');
 var $         = require('./jejkvery');
-
-console.log(events);
 
 module.exports = function(element) {
     var touchStart = function(evt) {
         evt.preventDefault();
-        var startPos = getPos(evt);
+        var startPos = pos.pos(evt);
         var startTransform = transform.get(element);
-        
+
         var touchMove = function(evt) {
-            var pos = getPos(evt, startPos);
-            var delta = {
-                x: pos.x - startPos.x,
-                y: pos.y - startPos.y
-            };
             evt.preventDefault();
+            var curPos = pos.pos(evt);
+            var delta = pos.delta(curPos, startPos);
+            if (delta.firstMulti) {
+                startPos.multi = true;
+                startPos.distance = curPos.distance;
+                startPos.angle = curPos.angle;
+            } else if (delta.lastMulti) {
+                startPos.multi = false;
+                startPos.distance = undefined;
+                startPos.angle = undefined;
+            }
+            transform.set(element, {
+                x: startTransform.x - delta.x,
+                y: startTransform.y - delta.y,
+                scale: curPos.multi ? (startTransform.scale / startPos.distance) * (startPos.distance + delta.distance) : 1,
+                rotate: curPos.multi ? startTransform.rotate + delta.rotate : 0
+            });
         };
 
         var touchEnd = function(evt) {
