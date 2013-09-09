@@ -1,3 +1,8 @@
+/*
+ * Pass in a transform string like 'translateX(40px) rotate(29.3deg)'
+ * and a parameter like 'rotate' and return the value for that
+ * parameter as a number
+ */
 var part = function(string, which) {
     var regex = new RegExp(which + '\\((-?\\d+(\\.\\d+)?\\w*)\\)');
     var result = string.match(regex);
@@ -26,7 +31,7 @@ module.exports = {
                         element.style.MozTransform ||
                         element.style.OTransform ||
                         element.style.transform;
-        
+
         if (transform && transform.length) {
             return {
                 x: part(transform, 'translateX'),
@@ -40,7 +45,7 @@ module.exports = {
                 y: 0,
                 scale: 1,
                 rotate: 0
-            }
+            };
         }
     }
 };

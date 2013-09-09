@@ -13,10 +13,13 @@ module.exports = function(element) {
             evt.preventDefault();
             element.style.zIndex = '1';
             var curPos = pos.pos(evt);
+
+            // If a finger just was added, record current angle and distance
             if (curPos.multi && !startPos.multi) {
                 startPos.multi = true;
                 startPos.distance = curPos.distance;
                 startPos.angle = curPos.angle;
+            // If a finger just was removed, clear initial angle and distance
             } else if (!curPos.multi && startPos.multi) {
                 startPos.multi = false;
                 startPos.distance = undefined;
