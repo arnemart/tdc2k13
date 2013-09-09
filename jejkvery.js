@@ -1,4 +1,7 @@
+// Don’t use this for anything ever
+
 Element.prototype.on = Element.prototype.addEventListener;
+Element.prototype.off = Element.prototype.removeEventListener;
 NodeList.prototype.each = function(fun) {
     Array.prototype.forEach.call(this, fun);
 };
