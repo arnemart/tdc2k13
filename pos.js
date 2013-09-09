@@ -1,7 +1,7 @@
 module.exports = {
     pos: function(evt) {
         var pos;
-    
+
         // Double touch
         if (evt.targetTouches && evt.targetTouches.length === 2) {
             var x = evt.targetTouches[0].clientX;
@@ -15,19 +15,19 @@ module.exports = {
                 // Math!
                 distance: Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)),
                 rotate: Math.atan2(deltaY, deltaX) * 180 / Math.PI
-            }
+            };
         // Single touch
         } else if (evt.targetTouches && evt.targetTouches.length === 1) {
             pos = {
                 x: evt.targetTouches[0].clientX,
                 y: evt.targetTouches[0].clientY
-            }
+            };
         // No touch events
         } else if (!evt.targetTouches) {
             pos = {
                 x: evt.clientX,
                 y: evt.clientY
-            }
+            };
         }
 
         return pos;
@@ -35,14 +35,14 @@ module.exports = {
 
     delta: function(pos, startPos) {
         var delta = {
-            x: startPos.x - pos.x,
-            y: startPos.y - pos.y,
+            x: pos.x - startPos.x,
+            y: pos.y - startPos.y,
             distance: 0,
             rotate: 0
         };
         if (pos.multi && startPos.multi) {
-            delta.distance = startPos.distance - pos.distance,
-            delta.rotate = startPos.rotate - pos.rotate
+            delta.distance = pos.distance - startPos.distance;
+            delta.rotate = pos.rotate - startPos.rotate;
         }
         return delta;
     }
