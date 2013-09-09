@@ -24,10 +24,10 @@ module.exports = function(element) {
             }
             var delta = pos.delta(curPos, startPos);
             transform.set(element, {
-                x: startTransform.x - delta.x,
-                y: startTransform.y - delta.y,
-                scale: curPos.multi ? (startTransform.scale / startPos.distance) * (startPos.distance + delta.distance) : 1,
-                rotate: curPos.multi ? startTransform.rotate + delta.rotate : 0
+                x: startTransform.x + delta.x,
+                y: startTransform.y + delta.y,
+                scale: curPos.multi ? (startTransform.scale / startPos.distance) * (startPos.distance + delta.distance) : startTransform.scale,
+                rotate: curPos.multi ? startTransform.rotate + delta.rotate : startTransform.rotate
             });
         };
 
@@ -42,7 +42,7 @@ module.exports = function(element) {
         element.on(events.move, touchMove);
         element.on(events.end, touchEnd);
         element.on(events.cancel, touchEnd);
-        
+
     };
     element.on(events.start, touchStart);
     element.style.zIndex = '0';
