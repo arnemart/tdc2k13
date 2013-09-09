@@ -1,7 +1,7 @@
-var events    = require('./events');
+var events = require('./events');
 var transform = require('./transform');
-var pos    = require('./pos');
-var $         = require('./jejkvery');
+var pos = require('./pos');
+var $ = require('./jejkvery');
 
 module.exports = function(element) {
     var touchStart = function(evt) {
@@ -11,6 +11,7 @@ module.exports = function(element) {
 
         var touchMove = function(evt) {
             evt.preventDefault();
+            element.style.zIndex = '1';
             var curPos = pos.pos(evt);
             if (curPos.multi && !startPos.multi) {
                 startPos.multi = true;
@@ -32,15 +33,17 @@ module.exports = function(element) {
 
         var touchEnd = function(evt) {
             evt.preventDefault();
-            element.removeEventListener(events.move, touchMove);
-            element.removeEventListener(events.end, touchEnd);
-            element.removeEventListener(events.cancel, touchEnd);
+            element.style.zIndex = '0';
+            element.off(events.move, touchMove);
+            element.off(events.end, touchEnd);
+            element.off(events.cancel, touchEnd);
         };
 
-        element.addEventListener(events.move, touchMove);
-        element.addEventListener(events.end, touchEnd);
-        element.addEventListener(events.cancel, touchEnd);
+        element.on(events.move, touchMove);
+        element.on(events.end, touchEnd);
+        element.on(events.cancel, touchEnd);
         
     };
-    element.addEventListener(events.start, touchStart);
+    element.on(events.start, touchStart);
+    element.style.zIndex = '0';
 };
