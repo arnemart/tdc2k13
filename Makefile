@@ -1,13 +1,15 @@
 build:
-	node_modules/.bin/browserify letsDoThis.js -o build.js
+	mkdir -p build
+	node_modules/.bin/browserify js/letsDoThis.js -o build/all.js
 
 watch:
-	node_modules/.bin/watchify letsDoThis.js -o build.js -v
+	mkdir -p build
+	node_modules/.bin/watchify js/letsDoThis.js -o build/all.js -v
 
 deps:
 	npm install
 
 clean:
-	rm -f build.js
+	rm -rf build
 
 .PHONY: build watch deps clean
