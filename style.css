@@ -5,3 +5,13 @@
     background-color: #ddd;
     border: thin solid black;
 }
+
+.dnd + .dnd {
+    left: 100px;
+    top: 100px;
+}
+
+.dnd + .dnd + .dnd {
+    left: 200px;
+    top: 200px;
+}
