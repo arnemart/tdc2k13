@@ -5,7 +5,7 @@ Element.prototype.on = Element.prototype.addEventListener;
 Element.prototype.off = Element.prototype.removeEventListener;
 // We want to write $('something').each(...), of course
 NodeList.prototype.each = function(fun) {
-    Array.prototype.forEach.call(this, fun);
+    Array.prototype.forEach.call(/* Isn't */this, fun /* ! */);
 };
 // var $ = require('./jejkvery') and Bob's yer uncle
 module.exports = function(sel) {
