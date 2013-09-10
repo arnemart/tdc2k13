@@ -1,9 +1,10 @@
 {
-    "name": "TouchThis",
-    "version": "0.0.1",
-    "repository": "https://github.com/arnemart/tdc2k13",
-    "devDependencies": {
-        "browserify": "*",
-        "watchify": "*"
-    }
+  "name": "TouchThis",
+  "version": "0.0.1",
+  "repository": "https://github.com/arnemart/tdc2k13",
+  "devDependencies": {
+    "browserify": "*",
+    "watchify": "*",
+    "buster": "0.6.x"
+  }
 }
