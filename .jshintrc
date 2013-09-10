@@ -2,5 +2,9 @@
     "node": true,
     "browser": true,
     "strict": false,
-    "unused": false
+    "unused": false,
+    "predef": {
+        "Element": true,
+        "NodeList": true
+    }
 }
