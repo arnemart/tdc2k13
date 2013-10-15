@@ -29,6 +29,7 @@ module.exports = function(element) {
             var curPos = pos.pos(evt);
 
             // If a finger just was added, record current angle and distance
+            // (Ugh mutable state)
             if (curPos.multi && !startPos.multi) {
                 startPos.multi = true;
                 startPos.distance = curPos.distance;
@@ -46,7 +47,7 @@ module.exports = function(element) {
             transform.set(element, {
                 x: startTransform.x + delta.x,
                 y: startTransform.y + delta.y,
-                scale: curPos.multi ? (startTransform.scale / startPos.distance) * (startPos.distance + delta.distance) : startTransform.scale,
+                scale: curPos.multi ? (startTransform.scale / startPos.distance) * curPos.distance : startTransform.scale,
                 rotate: curPos.multi ? startTransform.rotate + delta.rotate : startTransform.rotate
             });
         };
