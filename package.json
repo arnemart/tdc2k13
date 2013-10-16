@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "repository": "https://github.com/arnemart/tdc2k13",
   "devDependencies": {
-    "browserify": "*",
-    "watchify": "*",
-    "buster": "0.6.x"
+    "browserify": "~2.34.1",
+    "watchify": "~0.2.0",
+    "buster": "~0.7.6"
+  },
+  "dependencies": {
   }
 }
