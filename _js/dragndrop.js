@@ -13,50 +13,25 @@ module.exports = function(element) {
     var touchStart = function(evt) {
         evt.preventDefault();
 
-        // Finger position at touch start
-        var startPos = pos.pos(evt);
+        console.log('start');
 
-        // Get element position at touch start
-        var startTransform = transform.get(element);
-
-        // Do some z-index stuff to put the currently dragging element on top of the others
-        element.style.zIndex = '1';
+        // SOME STUFF
 
         var touchMove = function(evt) {
             evt.preventDefault();
 
-            // Current finger position
-            var curPos = pos.pos(evt);
+            console.log('move');
 
-            // If a finger just was added, record current angle and distance
-            // (Ugh mutable state)
-            if (curPos.multi && !startPos.multi) {
-                startPos.multi = true;
-                startPos.distance = curPos.distance;
-                startPos.angle = curPos.angle;
+            // MAGIC
 
-            // If a finger just was removed, clear initial angle and distance
-            } else if (!curPos.multi && startPos.multi) {
-                startPos.multi = false;
-                startPos.distance = undefined;
-                startPos.angle = undefined;
-            }
-
-            // Get delta between start finger position and current finger position, and move the element accordingly
-            var delta = pos.delta(curPos, startPos);
-            transform.set(element, {
-                x: startTransform.x + delta.x,
-                y: startTransform.y + delta.y,
-                scale: curPos.multi ? (startTransform.scale / startPos.distance) * curPos.distance : startTransform.scale,
-                rotate: curPos.multi ? startTransform.rotate + delta.rotate : startTransform.rotate
-            });
         };
 
         var touchEnd = function(evt) {
             evt.preventDefault();
 
-            // Drop down to z-index 0
-            element.style.zIndex = '0';
+            console.log('end');
+
+            // SECRET
 
             // Unbind move, end and cancel events
             element.off(events.move, touchMove);
