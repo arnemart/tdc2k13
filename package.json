@@ -5,8 +5,8 @@
   "devDependencies": {
     "browserify": "~2.34.1",
     "watchify": "~0.2.0",
-    "buster": "~0.7.6"
+    "buster": "~0.7.6",
+    "slid.js": "~0.0.1"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
