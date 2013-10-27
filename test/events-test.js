@@ -10,8 +10,15 @@ buster.testCase('Select correct events', {
         var events = require('../js/events');
         assert.equals(events.start, 'touchstart');
     },
-    'Pointer events': function() {
+    'Pointer events (prefixed)': function() {
         GLOBAL.navigator = { msMaxTouchPoints: 4 };
+        GLOBAL.document = { body: {} };
+        delete require.cache[path.resolve('js/events.js')];
+        var events = require('../js/events');
+        assert.equals(events.start, 'MSPointerDown');
+    },
+    'Pointer events (unprefixed)': function() {
+        GLOBAL.navigator = { maxTouchPoints: 4 };
         GLOBAL.document = { body: {} };
         delete require.cache[path.resolve('js/events.js')];
         var events = require('../js/events');
