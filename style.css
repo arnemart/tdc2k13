@@ -1,5 +1,6 @@
 .dnd {
     -ms-touch-action: none; /* Stupid Microsoft */
+    touch-action: none;
     position: absolute;
     width: 200px;
     height: 200px;
