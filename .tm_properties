@@ -1,6 +1,0 @@
-TM_PROJECT_DIRECTORY = "$CWD"
-
-myExcludes = "node_modules,.gitignore,.jshintrc,.tm_properties,package.json"
-excludeInFolderSearch = "{$excludeInFolderSearch,$myExcludes}"
-excludeInBrowser = "{excludeInBrowser,$myExcludes}"
-excludeInFileChooser = "{excludeInFileChooser,node_modules}"
