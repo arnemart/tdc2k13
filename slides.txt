@@ -5,11 +5,18 @@
 ~
 
 ~ Arne Martin Aurlien
-@arnemart
 Boost Communications
+github.com/arnemart
+@arnemart
 
+> Hei etc.
+> Vi skal snakke litt om touch-interaksjon i javascript.
+> Først skal jeg prate litt, men mesteparten av tiden kommer forhåpentligvis til å bli live koding.
+> Som alle kroniske prokrastinatorer har jeg lagd mitt eget presentasjonsverktøy, sjekk github for å finne ut hvor hårreisende stygg den koden er.
 
 ----
+
+> Ok, så litt historie.
 
 # In the beforetime
 
@@ -20,6 +27,8 @@ _1963:_ Douglas Engelbart finner opp musen
 
 Dermed kunne vi gjøre sånn:
 `lang=html<a href="#" onClick="doStuff()">...</a>`
+
+> Javascript oppsto etter at musen var overalt, så enkel støtte for mus fantes ganske tidlig.
 
 ~
 --
@@ -33,6 +42,7 @@ Etterhvert gjorde vi sånn:
 Skulle vi gjøre noe mer avansert ble det sånn:
 `lang=javascript element.addEventListener('mouseDown|mouseMove|mouseUp|mouseOut');`
 
+> Da kunne vi klikke og dra elementer rundt og gjøre masse gøy. Men: Du kan bare ha en mus på skjermen om gangen!
 
 ----
 
@@ -54,6 +64,9 @@ Skulle vi gjøre noe mer avansert ble det sånn:
 
 --
 Disse ble plutselig en greie
+
+> iPhone ble lansert i 2007 som det første stykket populær forbrukerelektronikk med kapasitiv touchskjerm og multitouch
+> Tidligere smarttelefoner hadde resistive touchskjermer der du måtte fysisk trykke ned skjermen med fingeren eller helst en penn, som et dyr
 
 ----
 
@@ -100,13 +113,49 @@ Og de har jo ingen mus
                \__________/
 
 
+~
+--
+
+Det er plass til mange fingre på skjermen på en gang.
+
+> Muse-apiet støtter ikke mer enn ett punkt og holder åpenbart ikke
+
 ----
 
-Og dermed
+~
+
+~Og dermed
 
 # touchEvents
 
+> Et eget API for touch og multitouch
 
+~
+--
+
+Opprinnelig spesifisert av Apple for Safari på iPhone, nå mer eller mindre standardisert.
+
+> Støttet i de aller fleste mobile nettlesere, med unntak av IE
+
+--
+
+```javascript
+element.addEventListener('touchStart|touchMove|touchEnd|touchCancel|etc', listener);
+```
+
+> touchStart, touchMove, touchEnd i stedet for mouseDown, mouseMove, mouseOut, og de gjør mer eller mindre det samme
+
+--
+
+```javascript
+var listener = function(event) {
+    event.touches // Array av alle touch-punkter
+    event.targetTouches // Array av alle touch-punkter for gjeldende element
+};
+```
+
+> Bortsett fra at de støtter flere fingre på en gang!
+> Med museeventer leser man posisjonen til musen rett på event-objektet (pageX/Y, clientX/Y, screenX/Y), med touchevents er posisjonen tilgjengelig for hvert enkelt touch-objekt
 
 
 ----
@@ -115,15 +164,29 @@ Og dermed
 
 Microsoft måtte jo såklart gjøre sin egen greie
 
+> Opprinnelig spesifisert av microsoft, på vei til å bli standardisert men støttes foreløpig kun i IE
+
 ~
 --
 
 Pointer events slår sammen mus, touch, penn etc til et felles API
 
+> Typisk microsoft -- ingen kompromisser, bortsett fra masse kompromisser
+
 ~
 --
 
 En event per punkt, ingen aggregering -- vanskelig med kryss-API multitouch
+
+> Touch events sender med en liste over touch-punkter på en event, pointer events har kun ett punkt per event, som gjør bokføringen vanskeligere ved multitouch
+
+~
+--
+
+Eget API for gestures
+
+> Opprett et gesture-objekt, legg til flere pointere på det objektet
+> Det går vi ikke inn på i detalj her i dag
 
 ~
 --
@@ -133,6 +196,9 @@ En event per punkt, ingen aggregering -- vanskelig med kryss-API multitouch
     -ms-touch-action: none;
 }
 ```
+
+> I stedet for å bruke event.preventDefault() som et vanlig fornuftig menneske må du sette CSS på elementer hvor pointer events skal brukes for at det skal funke.
+> Flere forskjellige verdier ettersom hvordan touch skal brukes, men dette er fortsatt uintuitivt IMO.
 
 
 ----
@@ -154,3 +220,15 @@ En event per punkt, ingen aggregering -- vanskelig med kryss-API multitouch
              \              /
               \            /
                \__________/
+
+> Som sagt, med multitouch det er vanskelig å støtte både touch events og pointer events samtidig uten å ha to forskjellige kodestier. For enkelhelts skyld har jeg valgt å kun støtte multitouch med touch events her i dag.
+
+----
+
+# Nok slides, la oss kode litt
+
+----
+
+# Takk for meg
+
+~github.com/arnemart/tdc2k13
