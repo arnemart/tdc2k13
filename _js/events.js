@@ -1,11 +1,19 @@
 module.exports =
-(navigator.msMaxTouchPoints > 0) ?
-    // Use pointer events on IE
+(navigator.maxTouchPoints) ?
+    // Use unprefixed pointer events on latestIE
     {
         start: 'pointerdown',
         move: 'pointermove',
         end: 'pointerup',
-        cancel: 'pointercancel'
+        cancel: 'pointerout'
+    }
+: (navigator.msMaxTouchPoints) ?
+    // Use pointer events on IE
+    {
+        start: 'MSPointerDown',
+        move: 'MSPointerMove',
+        end: 'MSPointerUp',
+        cancel: 'MSPointerOut'
     }
 : ('ontouchstart' in document.body) ?
     // Otherwise, use touch events if available

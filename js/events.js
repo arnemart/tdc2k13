@@ -1,5 +1,13 @@
 module.exports =
-(navigator.msMaxTouchPoints) ?
+(navigator.maxTouchPoints) ?
+    // Use unprefixed pointer events on latestIE
+    {
+        start: 'pointerdown',
+        move: 'pointermove',
+        end: 'pointerup',
+        cancel: 'pointerout'
+    }
+: (navigator.msMaxTouchPoints) ?
     // Use pointer events on IE
     {
         start: 'MSPointerDown',
